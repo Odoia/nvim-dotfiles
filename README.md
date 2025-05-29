@@ -116,3 +116,42 @@ Launch Neovim and run:
 
 Clone your dotfiles:  
 📁 [https://github.com/Odoia/nvim-dotfiles](https://github.com/Odoia/nvim-dotfiles)
+
+## 🌲 NvimTree File Explorer Keybindings
+
+### 🗂️ Local Keybindings (inside NvimTree window)
+
+| Key | Action |
+|-----|--------|
+| `q` | Close Tree |
+| `R` | Refresh Tree |
+| `?` | Help |
+| `<CR>` / `l` | Open |
+| `h` | Close Directory |
+| `v` | Open Vertical Split |
+| `s` | Open Horizontal Split |
+| `u` | Up a Directory |
+| `C` | Set Root to Directory |
+| `a` | Create |
+| `d` | Delete |
+| `r` | Rename |
+| `x` | Cut |
+| `c` | Copy |
+| `p` | Paste |
+| `y` | Copy Name |
+| `Y` | Copy Relative Path |
+| `gy` | Copy Absolute Path |
+| `I` | Toggle Git Ignore |
+| `.` | Toggle Dotfiles |
+| `f` | Filter by Name |
+| `F` | Clear Filter |
+
+### 🌍 Global Keybindings (usable from anywhere)
+
+| Keybinding | Action |
+|------------|--------|
+| `<leader>ee` | Toggle file explorer |
+| `<leader>ef` | Toggle file explorer on current file |
+| `<leader>ec` | Collapse file explorer |
+| `<leader>er` | Refresh file explorer |
+| `<leader>ev` | Open and focus NvimTree |
