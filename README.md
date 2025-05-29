@@ -1,140 +1,74 @@
-# 🧠 Neovim Setup for Any Project
+# Neovim Project Setup for Rails
 
-This document describes how to set up Neovim for full functionality in any project, including LSP, Treesitter, autocomplete, snippets, and more.
+This guide helps ensure your Neovim is fully set up with your custom dotfiles for any new Rails project.
 
----
+## ✅ Requirements Check
 
-## ✅ Prerequisites
-
-Make sure these tools are installed and available:
+Before you start, make sure the following are installed:
 
 ```bash
-which nvim
-which node
-which npm
-which yarn
-which ruby
-which bundler
+node -v && echo "Node OK" || echo "Node Missing"
+ruby -v && echo "Ruby OK" || echo "Ruby Missing"
+npm -v && echo "NPM OK" || echo "NPM Missing"
 ```
 
-If any of these are missing, install them using Homebrew, Mise, or another method.
+You should also have:
 
----
+- `neovim` installed with Lua support
+- Your dotfiles cloned and symlinked or copied properly
+- Language servers installed via Mason
 
-## 🧪 One-liner Setup for New Projects
+## 🧠 Mason LSP & Treesitter
 
-Run this after cloning or opening a new project:
+Open Neovim and run the following commands:
 
 ```bash
-nvim +"checkhealth" \
-     +"TSInstall lua ruby javascript typescript html css json bash tsx" \
-     +"TSUpdate" \
-     +"MasonInstall ruby-lsp lua_ls tsserver html-lsp css-lsp" \
-     +q
+:Mason
+:MasonInstall lua-language-server ruby-lsp tsserver html cssls jsonls bashls
+:TSInstall lua ruby javascript typescript html css json bash tsx
 ```
 
----
+## ✨ Telescope & LSP Keybindings
 
-## 🧠 Treesitter
+| Keybinding       | Action                           |
+|------------------|----------------------------------|
+| `<leader>ff`     | Find Files                       |
+| `<leader>fg`     | Live Grep                        |
+| `<leader>fb`     | Find Buffers                     |
+| `<leader>fh`     | Help Tags                        |
+| `<leader>fm`     | Find Model File (Rails)          |
+| `<leader>fc`     | Find Controller File (Rails)     |
+| `<leader>fs`     | Find Service File (Rails)        |
+| `<leader>ft`     | Find Test File (spec/test)       |
+| `<leader>fdb`    | Find Migration File              |
+| `gd`             | Go to Definition                 |
+| `K`              | Show Hover                       |
+| `gr`             | List References                  |
+| `<leader>lf`     | Format Document                  |
+| `<leader>ld`     | Show Diagnostics                 |
 
-Ensures syntax highlighting and indentation:
+## 🔀 Window Navigation
 
-```bash
-nvim +"TSInstall lua ruby javascript typescript html css json bash tsx" +"TSUpdate" +q
-```
+| Mode | Keybinding | Action                  |
+|------|------------|-------------------------|
+| Normal | `<C-h>`  | Move to left window     |
+| Normal | `<C-j>`  | Move to bottom window   |
+| Normal | `<C-k>`  | Move to top window      |
+| Normal | `<C-l>`  | Move to right window    |
+| Terminal | `<C-h>`| Terminal: left window   |
+| Terminal | `<C-j>`| Terminal: bottom window |
+| Terminal | `<C-k>`| Terminal: top window    |
+| Terminal | `<C-l>`| Terminal: right window  |
 
----
+## 🗂️ File Tree Operations (NvimTree)
 
-## 🔧 Mason (LSP Installer)
+| Keybinding   | Action                       |
+|--------------|------------------------------|
+| `<leader>ma` | Add new file/directory       |
+| `<leader>mr` | Rename file/directory        |
+| `<leader>md` | Delete file/directory        |
 
-To install required language servers:
+## ℹ️ Notes
 
-```bash
-nvim +"MasonInstall ruby-lsp lua_ls tsserver html-lsp css-lsp" +q
-```
-
-To check installed/active servers:
-
-```vim
-:LspInfo
-```
-
----
-
-## 🧩 Plugin Management
-
-To sync and install plugins using Lazy:
-
-```bash
-nvim +Lazy sync +q
-```
-
-To open Lazy UI:
-
-```vim
-:Lazy
-```
-
----
-
-## 🔍 Diagnostic and Formatting
-
-Inside Neovim:
-
-```vim
-:lua vim.diagnostic.open_float()
-:lua vim.lsp.buf.format()
-```
-
----
-
-## 🧪 Autocomplete Test
-
-1. Open a Ruby or JS/TS file.
-2. Start typing (e.g., `Stri`)
-3. Press `<C-Space>` to trigger suggestions.
-
----
-
-## 📦 Snippets
-
-Snippets are loaded automatically from `friendly-snippets` using:
-
-```lua
-require("luasnip.loaders.from_vscode").lazy_load()
-```
-
----
-
-## 🎯 Useful Neovim Keymaps (Leader = `<space>`)
-
-| Mode | Mapping           | Action                             |
-|------|-------------------|-------------------------------------|
-| n    | `<leader>ff`      | Find files (Telescope)              |
-| n    | `<leader>fg`      | Live grep                           |
-| n    | `<leader>fb`      | List open buffers                   |
-| n    | `<leader>fh`      | Search help tags                    |
-| n    | `<leader>e`       | Toggle file explorer (NvimTree)     |
-| n    | `<leader>q`       | Close buffer                        |
-| n    | `<leader>rr`      | Reload current Lua config           |
-| n    | `<leader>gd`      | Go to definition                    |
-| n    | `<leader>gr`      | Go to references                    |
-| n    | `<leader>rn`      | Rename symbol                       |
-| n    | `<leader>ca`      | Show code actions                   |
-| i    | `<C-Space>`       | Trigger autocomplete (nvim-cmp)     |
-
----
-
-## 🧰 Summary
-
-✔ Neovim working with:
-- LSP for Ruby, Lua, TS, JS, HTML, CSS
-- Treesitter for syntax and indentation
-- Autocomplete with `nvim-cmp`
-- Snippets from `friendly-snippets`
-- Telescope, File Explorer, and custom keymaps
-
-After cloning a project, just run the one-liner setup and you're ready to code.
-
----
-
+- `vim.g.mapleader` is set to `,`
+- All configurations are located in your repo: [nvim-dotfiles](https://github.com/Odoia/nvim-dotfiles/tree/main/lua/user)
