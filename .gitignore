@@ -1,0 +1,29 @@
+# Neovim
+*.log
+.LSP_*.log
+
+# Lazy.nvim plugin manager
+lazy-lock.json
+
+# System files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+Desktop.ini
+
+# Backup files
+*~
+*.swp
+*.swo
+*.swn
+.netrwhist
+
+# Temporary files
+*.tmp
+*.temp
+
+# Local customizations (user-specific)
+local.lua
+local.vim

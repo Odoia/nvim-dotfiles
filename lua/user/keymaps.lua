@@ -2,6 +2,49 @@ vim.g.mapleader = ","
 
 local keymap = vim.keymap
 
+-- Which-key: Mostrar todos os atalhos
+keymap.set("n", "<leader>?", "<cmd>WhichKey<CR>", { desc = "Show All Keybindings" })
+
+-- Help: Abrir arquivos de atalhos com seleção de idioma
+keymap.set("n", "<leader>hh", function()
+  vim.ui.select(
+    { "English", "Português" },
+    {
+      prompt = "Choose language / Escolha o idioma:",
+      format_item = function(item)
+        if item == "English" then
+          return "📘 English (KEYBINDINGS.md)"
+        else
+          return "📗 Português (ATALHOS.md)"
+        end
+      end,
+    },
+    function(choice)
+      if choice == "English" then
+        -- Verificar se glow está disponível
+        if vim.fn.executable("glow") == 1 then
+          vim.cmd("Glow ~/.config/nvim/KEYBINDINGS.md")
+        else
+          -- Fallback: abrir em modo de leitura
+          vim.cmd("edit ~/.config/nvim/KEYBINDINGS.md")
+          vim.cmd("setlocal readonly nomodifiable")
+          vim.notify("Tip: Install 'glow' for better Markdown rendering (brew install glow)", vim.log.levels.INFO)
+        end
+      elseif choice == "Português" then
+        -- Verificar se glow está disponível
+        if vim.fn.executable("glow") == 1 then
+          vim.cmd("Glow ~/.config/nvim/ATALHOS.md")
+        else
+          -- Fallback: abrir em modo de leitura
+          vim.cmd("edit ~/.config/nvim/ATALHOS.md")
+          vim.cmd("setlocal readonly nomodifiable")
+          vim.notify("Dica: Instale 'glow' para melhor renderização (brew install glow)", vim.log.levels.INFO)
+        end
+      end
+    end
+  )
+end, { desc = "Open Keybindings Guide" })
+
 -- Telescope
 keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find Files" })
 keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Live Grep" })
@@ -38,6 +81,12 @@ keymap.set("n", "gr", vim.lsp.buf.references, { desc = "List References" })
 -- LSP Extra
 keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format Document" })
 keymap.set("n", "<leader>ld", vim.diagnostic.open_float, { desc = "Show Diagnostics" })
+keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code Actions (Fix)" })
+keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename Symbol" })
+
+-- Navegação entre erros/avisos
+keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
 
 -- Window navigation
 keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
